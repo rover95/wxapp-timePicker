@@ -176,35 +176,40 @@ Component({
       let start = this.data.limitStartTime;
       let end = this.data.limitEndTime;
       let timeNum = new Date(time).getTime();
-      let year, month, day, hour, min, sec;
+      let year, month, day, hour, min, sec, limitDate;
+      let tempArr = []
       console.log(timeNum < start, timeNum > end);
 
-      if (timeNum < start) {
-        let limitDate = this.data.limitStartTimeArr.arr;
+      if (type == "start" && timeNum > new Date(this.data.endPickTime)) {
+        limitDate = formatTime(this.data.endPickTime).arr;
+        
+      } else if (type == "end" && timeNum < new Date(this.data.startPickTime)) {
+        limitDate = formatTime(this.data.startPickTime).arr;
+        
+      } else if (timeNum < start) {
+        limitDate = this.data.limitStartTimeArr.arr;
 
-        year = limitDate[0];
-        month = limitDate[1];
-        day = limitDate[2];
-        hour = limitDate[3];
-        min = limitDate[4];
-        sec = limitDate[5];
       } else if (timeNum > end) {
-        let limitDate = this.data.limitEndTimeArr.arr;
-        year = limitDate[0];
-        month = limitDate[1];
-        day = limitDate[2];
-        hour = limitDate[3];
-        min = limitDate[4];
-        sec = limitDate[5];
+        limitDate = this.data.limitEndTimeArr.arr;
+        
       } else {
-        year = this.data.YearList[val[0]];
-        month = this.data.MonthList[val[1]];
-        day = this.data.DayList[val[2]];
-        hour = this.data.HourList[val[3]];
-        min = this.data.MinuteList[val[4]];
-        sec = this.data.SecondList[val[5]];
+        limitDate = [
+          this.data.YearList[val[0]],
+        this.data.MonthList[val[1]],
+        this.data.DayList[val[2]],
+        this.data.HourList[val[3]],
+        this.data.MinuteList[val[4]],
+       this.data.SecondList[val[5]]
+        ]
+        
       }
-      console.log(this.data);
+
+      year = limitDate[0];
+      month = limitDate[1];
+      day = limitDate[2];
+      hour = limitDate[3];
+      min = limitDate[4];
+      sec = limitDate[5];
 
       console.log(year, month, day, hour, min, sec);
       if (type == "start") {
@@ -402,7 +407,6 @@ Component({
       });
       console.log("开始时间：" + this.data.startPickTime);
     },
-
     setEndDate: function(year, month, day, hour, minute, second) {
       let pickerDateArr = this.setPickerDateArr(
         "end",
@@ -444,7 +448,7 @@ Component({
           this.data.SecondList[pickerDateArr.secondIdx]
       });
       // console.log('结束时间：' + this.data.endPickTime)
-    }
+    },
   }
 });
 
