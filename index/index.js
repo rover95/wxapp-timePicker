@@ -5,7 +5,7 @@ Page({
     isPickerRender: false,
     isPickerShow: false,
     pickerConfig: {
-      endDate: true,
+      // endDate: true,
       column: "second",
       dateLimit: true,
       limitStartTime: "2015-05-06 12:32:44",
