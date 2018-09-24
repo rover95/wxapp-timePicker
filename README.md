@@ -13,3 +13,8 @@ pickerConfig: {
 
 其他限制条件可修改组件中的compareTime函数定义
 
+endDate: true
+![gif](https://raw.githubusercontent.com/rover95/wxapp-timePicker/master/images/endDate.gif)
+
+endDate: false
+![gif](https://raw.githubusercontent.com/rover95/wxapp-timePicker/master/images/noEndDate.gif)
