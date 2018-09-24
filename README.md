@@ -1,6 +1,7 @@
 # wxapp-timePicker
-微信小程序自定义时间选择器，支持多种自定义功能。[在开发工具中浏览](wechatide://minicode/OGPpLFmW7t2k)  
-配置
+微信小程序自定义时间选择器，支持多种自定义功能。[在开发工具中浏览](wechatide://minicode/OGPpLFmW7t2k)[12]wechatide://minicode/OGPpLFmW7t2k   
+  
+配置项
 ```js
 pickerConfig: {
   endDate: true,                          // 是否需要结束时间，为true时显示开始时间和结束时间两个picker
