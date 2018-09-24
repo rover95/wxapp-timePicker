@@ -2,6 +2,7 @@
 微信小程序自定义时间选择器，支持多种自定义功能。  
 
 [在开发工具中浏览:](wechatide://minicode/OGPpLFmW7t2k)  [wechatide://minicode/OGPpLFmW7t2k](wechatide://minicode/OGPpLFmW7t2k)   
+复制链接在浏览器中打开  
   
 配置项
 ```js
