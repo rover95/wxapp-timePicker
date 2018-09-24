@@ -37,7 +37,7 @@
         <picker-view class='sensorTypePicker' indicator-style='height: 35px;' bindchange="changeEndDateTime"
           value="{{endValue}}">
           <picker-view-column style="min-width: 70px;flex-shrink: 0">
-            <view class='picker-item' style="min-width: 70px;" wx:for="{{endYearList}}" wx:key='*this'>{{item}}年</view>
+            <view class='picker-item' wx:for="{{endYearList}}" wx:key='*this' style="min-width: 70px;">{{item}}年</view>
           </picker-view-column>
           <picker-view-column>
             <view class='picker-item' wx:for="{{endMonthList}}" wx:key='*this'>{{item}}月</view>
@@ -64,5 +64,5 @@
 
   </view>
   <!-- 遮罩 -->
-  <view class="sensorType-screen" bindtap="hideModal" />
+  <view class="sensorType-screen" bindtap="hideModal" animation="{{animationOpacity}}"/>
 </view>

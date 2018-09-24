@@ -6,10 +6,64 @@ Component({
   properties: {
     pickerShow: {
       type: Boolean,
-      observer:function(){
-        // setTimeout(() => {
-        //   this.setData({ pickerColumnShow: true });
-        // }, 0);
+      observer:function(val){
+        // console.log(this.data);
+        if(val){
+          let animation = wx.createAnimation({
+            duration: 500,
+            timingFunction: "ease"
+          });
+          let animationOpacity = wx.createAnimation({
+            duration: 500,
+            timingFunction: "ease"
+          });
+          setTimeout(() => {
+            animation.bottom(0).step();
+            animationOpacity.opacity(0.7).step();
+            this.setData({
+              animationOpacity: animationOpacity.export(),
+              animationData: animation.export()
+            })
+          }, 0);
+        }else{
+          let animation = wx.createAnimation({
+            duration: 100,
+            timingFunction: "ease"
+          });
+          let animationOpacity = wx.createAnimation({
+            duration: 500,
+            timingFunction: "ease"
+          });
+          animation.bottom(-320).step();
+          animationOpacity.opacity(0).step();
+          this.setData({
+            animationOpacity: animationOpacity.export(),
+            animationData: animation.export()
+          });
+        }
+
+        // 在picker滚动未停止前点确定，会使startValue数组各项归零，发生错误，这里判断并重新初始化
+        if(this.data.startValue&&this.data.endValue){
+          let s = 0, e = 0;
+          this.data.startValue.map(val => {
+            if (val == 0) {
+              s++
+            }
+          })
+          this.data.endValue.map(val => {
+            if (val == 0) {
+              e++;
+            }
+          });
+          if (s==6||e==6) {
+            this.initPick();
+            this.setData({
+              startValue: this.data.startValue,
+              endValue: this.data.endValue,
+            });
+          }
+        }
+        
 
       }
     },
@@ -33,13 +87,14 @@ Component({
   ready: function() {
     this.readConfig();
     this.initPick();
-    console.log(this.data.startValue);
     this.setData({
       startValue: this.data.startValue,
-      endValue: this.data.endValue
+      endValue: this.data.endValue,
     });
 
-    this.setData({ pickerColumnShow: true });
+
+    
+    
   },
   /**
    * 组件的方法列表
@@ -56,10 +111,22 @@ Component({
           limitStartTime =
             new Date().getTime() - 1000 * 60 * 60 * 24 * conf.dateLimit;
         }
+        if(conf.limitStartTime){
+          
+          limitStartTime = new Date(conf.limitStartTime).getTime();
+        }
+        console.log(conf.limitEndTime);
+        
+        if (conf.limitEndTime) {
+          
+          limitEndTime = new Date(conf.limitEndTime).getTime();
+        }
+        
         this.setData({
           yearStart: conf.yearStart || 2000,
           yearEnd: conf.yearEnd || 2100,
           endDate: conf.endDate || false,
+          dateLimit: conf.dateLimit || false,
           hourColumn:
             conf.column == "hour" ||
             conf.column == "minute" ||
@@ -71,6 +138,7 @@ Component({
 
       let limitStartTimeArr = formatTime(limitStartTime);
       let limitEndTimeArr = formatTime(limitEndTime);
+      
       this.setData({
         limitStartTime,
         limitStartTimeArr,
@@ -82,40 +150,42 @@ Component({
       console.log(this.data.startPickTime, this.data.endPickTime);
       let startTime = new Date(this.data.startPickTime);
       let endTime = new Date(this.data.endPickTime);
-      if (startTime <= endTime) {
+      if (startTime <= endTime || !this.data.endDate) {
         this.setData({
           startTime,
           endTime
         });
         let startArr = formatTime(startTime).arr;
         let endArr = formatTime(endTime).arr;
-        // let s_h =
+        let format0 = function(num){
+          return num<10?'0'+num:num
+        }
 
         let startTimeBack =
           startArr[0] +
           "-" +
-          startArr[1] +
+          format0(startArr[1]) +
           "-" +
-          startArr[2] +
+          format0(startArr[2]) +
           " " +
-          (this.data.hourColumn ? startArr[3] : "00") +
+          (this.data.hourColumn ? format0(startArr[3]) : "00") +
           ":" +
-          (this.data.minColumn ? startArr[4] : "00") +
+          (this.data.minColumn ? format0(startArr[4]) : "00") +
           ":" +
-          (this.data.secColumn ? startArr[5] : "00");
+          (this.data.secColumn ? format0(startArr[5]) : "00");
 
         let endTimeBack =
           endArr[0] +
           "-" +
-          endArr[1] +
+          format0(endArr[1]) +
           "-" +
-          endArr[2] +
+          format0(endArr[2]) +
           " " +
-          (this.data.hourColumn ? endArr[3] : "00") +
+          (this.data.hourColumn ? format0(endArr[3]) : "00") +
           ":" +
-          (this.data.minColumn ? endArr[4] : "00") +
+          (this.data.minColumn ? format0(endArr[4]) : "00") +
           ":" +
-          (this.data.secColumn ? endArr[5] : "00");
+          (this.data.secColumn ? format0(endArr[5]) : "00");
 
         let time = {
           startTime: startTimeBack,
@@ -134,19 +204,14 @@ Component({
       }
     },
     hideModal: function() {
-      this.setData({
-        pickerColumnShow: false
-      });
-
-      setTimeout(() => {
-        this.setData({
-          pickerColumnShow: true
-        });
-      }, 2000);
+      console.log(this.data);
+      
       this.triggerEvent("hidePicker", {});
     },
     changeStartDateTime: function(e) {
       let val = e.detail.value;
+      console.log(e);
+      
       this.compareTime(val, "start");
     },
 
@@ -178,9 +243,16 @@ Component({
       let timeNum = new Date(time).getTime();
       let year, month, day, hour, min, sec, limitDate;
       let tempArr = []
-      console.log(timeNum < start, timeNum > end);
 
-      if (type == "start" && timeNum > new Date(this.data.endPickTime)) {
+      if (!this.data.dateLimit){
+        limitDate = [
+          this.data.YearList[val[0]],
+          this.data.MonthList[val[1]],
+          this.data.DayList[val[2]],
+          this.data.HourList[val[3]],
+          this.data.MinuteList[val[4]],
+          this.data.SecondList[val[5]]]
+      }else if (type == "start" && timeNum > new Date(this.data.endPickTime)) {
         limitDate = formatTime(this.data.endPickTime).arr;
         
       } else if (type == "end" && timeNum < new Date(this.data.startPickTime)) {
@@ -236,12 +308,14 @@ Component({
       const nowDay = date.getDate();
       const nowHour = date.getHours();
       const nowMinute = date.getMinutes();
+      const nowSecond = date.getSeconds();
 
       const startYear = startDate.getFullYear();
       const startMonth = startDate.getMonth() + 1;
       const startDay = startDate.getDate();
       const startHour = startDate.getHours();
       const startMinute = startDate.getMinutes();
+      const startSecond = startDate.getSeconds();
 
       let YearList = [];
       let MonthList = [];
@@ -288,14 +362,8 @@ Component({
         SecondList
       });
 
-      this.setStartDate(
-        startYear,
-        startMonth,
-        startDay,
-        startHour,
-        startMinute
-      );
-      this.setEndDate(nowYear, nowMonth, nowDay, nowHour, nowMinute);
+      this.setStartDate(startYear, startMonth, startDay, startHour, startMinute, startSecond);
+      this.setEndDate(nowYear, nowMonth, nowDay, nowHour, nowMinute, nowSecond);
 
       //!!!
       // setTimeout(() => {
@@ -405,7 +473,7 @@ Component({
           ":" +
           this.data.SecondList[pickerDateArr.secondIdx]
       });
-      console.log("开始时间：" + this.data.startPickTime);
+      // console.log("开始时间：" + this.data.startPickTime);
     },
     setEndDate: function(year, month, day, hour, minute, second) {
       let pickerDateArr = this.setPickerDateArr(
@@ -417,7 +485,6 @@ Component({
         minute,
         second
       );
-      console.log(pickerDateArr);
 
       this.setData({
         endYearList: this.data.YearList,
@@ -454,7 +521,7 @@ Component({
 
 
 function formatTime(date) {
-  console.log(typeof date);
+  // console.log(typeof date);
 
   if (typeof date == 'string' || 'number') {
     date = new Date(date)

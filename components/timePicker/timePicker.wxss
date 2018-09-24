@@ -17,9 +17,9 @@
   width: 100%;
   overflow: hidden;
   position: fixed;
-  bottom: 0px;
+  bottom: -320px;
   left: 0;
-  height: 0;
+  /* height: 0; */
   transition: height 0.5s;
   z-index: 2000;
   background: white;
@@ -34,7 +34,7 @@
   bottom: 0;
   left: 0;
   background: #000;
-  opacity: 0.5;
+  opacity: 0;
   overflow: hidden;
   z-index: 1999;
   color: #fff;
@@ -89,8 +89,8 @@
 }
 
 .show_picker{
-  height: 320px;
+  /* height: 320px; */
 }
 .hide_picker{
-  height: 0;
+  /* height: 0; */
 }

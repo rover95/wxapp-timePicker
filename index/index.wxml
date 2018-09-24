@@ -1,6 +1,16 @@
 <view>
-  <button bindtap="pickerShow">显示picker</button>
+  <button bindtap="pickerShow" style="width:80vw;margin-top:20px">显示picker</button>
 </view>
 
-<timePicker pickerShow="{{isPickerShow}}" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
+<view style="text-align:center;margin-top:20px">
+  <view wx:if="{{startTime}}">
+    开始时间：{{startTime}}
+  </view>
+  <view wx:if="{{endTime}}">
+    结束时间：{{endTime}}
+  </view>
+</view>
+
+
+<timePicker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
   config="{{pickerConfig}}"></timePicker>
