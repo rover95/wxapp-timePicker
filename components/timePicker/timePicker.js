@@ -47,7 +47,6 @@ Component({
         if(this.data.startValue&&this.data.endValue){
           let s = 0, e = 0;
           let conf = this.data.config;
-          debugger;
           
           this.data.startValue.map(val => {
             if (val == 0) {
