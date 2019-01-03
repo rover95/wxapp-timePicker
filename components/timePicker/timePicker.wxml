@@ -10,7 +10,7 @@
 
     <view>
       <picker-view class='sensorTypePicker' indicator-style='height: 35px;' bindchange="changeStartDateTime"
-        value="{{startValue}}" style="height: {{endDate?'120px':'250px'}};">
+        value="{{startValue}}" style="height: {{endDate?'120px':'250px'}};" bindpickstart="handlePickStart" bindpickend="handlePickEnd">
         <picker-view-column style="min-width: 70px;flex-shrink: 0">
           <view class='picker-item' wx:for="{{startYearList}}" wx:key='*this'>{{item}}年</view>
         </picker-view-column>
@@ -34,7 +34,7 @@
 
     <view wx:if="{{endDate}}">
       <view class='to' style='margin-top: 4px;margin-bottom: 4px;'>至</view>
-        <picker-view class='sensorTypePicker' indicator-style='height: 35px;' bindchange="changeEndDateTime"
+        <picker-view class='sensorTypePicker' indicator-style='height: 35px;' bindchange="changeEndDateTime" bindpickstart="handlePickStart" bindpickend="handlePickEnd" 
           value="{{endValue}}">
           <picker-view-column style="min-width: 70px;flex-shrink: 0">
             <view class='picker-item' wx:for="{{endYearList}}" wx:key='*this' style="min-width: 70px;">{{item}}年</view>
