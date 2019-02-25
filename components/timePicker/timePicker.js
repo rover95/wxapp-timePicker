@@ -6,7 +6,7 @@ Component({
   properties: {
     pickerShow: {
       type: Boolean,
-      observer:function(val){
+      observer:function(val){   //弹出动画
         // console.log(this.data);
         if(val){
           let animation = wx.createAnimation({
@@ -45,6 +45,7 @@ Component({
         // 在picker滚动未停止前点确定，会使startValue数组各项归零，发生错误，这里判断并重新初始化
         if(this.data.startValue&&this.data.endValue){
           let s = 0, e = 0;
+          let conf = this.data.config;
           this.data.startValue.map(val => {
             if (val == 0) {
               s++
@@ -55,7 +56,13 @@ Component({
               e++;
             }
           });
-          if (s==6||e==6) {
+          let tmp={
+            hour:4,
+            minute:5,
+            second:6
+          }
+          let n = tmp[conf.column];
+          if (s>=n || e>=n) {
             this.initPick();
             this.setData({
               startValue: this.data.startValue,
@@ -86,7 +93,7 @@ Component({
   attached: function() {},
   ready: function() {
     this.readConfig();
-    this.initPick();
+    this.initPick(this.data.config.initStartTime || null);
     this.setData({
       startValue: this.data.startValue,
       endValue: this.data.endValue,
@@ -107,6 +114,7 @@ Component({
       console.log(this.data);
       if (this.data.config) {
         let conf = this.data.config;
+        
         if (typeof conf.dateLimit == "number") {
           limitStartTime =
             new Date().getTime() - 1000 * 60 * 60 * 24 * conf.dateLimit;
@@ -118,7 +126,6 @@ Component({
         console.log(conf.limitEndTime);
         
         if (conf.limitEndTime) {
-          
           limitEndTime = new Date(conf.limitEndTime).getTime();
         }
         
@@ -146,10 +153,27 @@ Component({
         limitEndTimeArr
       });
     },
+    preventD:function(){
+
+    },
+    //滚动开始
+    handlePickStart:function(e){
+      this.setData({
+        isPicking:true
+      })
+    },
+    //滚动结束
+    handlePickEnd:function(e){
+      this.setData({
+        isPicking:false
+      })
+    },
     onConfirm: function() {
+      //滚动未结束时不能确认
+      if(this.data.isPicking){return}
       console.log(this.data.startPickTime, this.data.endPickTime);
-      let startTime = new Date(this.data.startPickTime);
-      let endTime = new Date(this.data.endPickTime);
+      let startTime = new Date(this.data.startPickTime.replace(/-/g, "/"));
+      let endTime = new Date(this.data.endPickTime.replace(/-/g, "/"));
       if (startTime <= endTime || !this.data.endDate) {
         this.setData({
           startTime,
@@ -160,7 +184,8 @@ Component({
         let format0 = function(num){
           return num<10?'0'+num:num
         }
-
+        console.log("startTime", startTime, this.data.startPickTime);
+        
         let startTimeBack =
           startArr[0] +
           "-" +
@@ -210,7 +235,7 @@ Component({
     },
     changeStartDateTime: function(e) {
       let val = e.detail.value;
-      console.log(e);
+      // console.log(e);
       
       this.compareTime(val, "start");
     },
@@ -252,7 +277,7 @@ Component({
           this.data.HourList[val[3]],
           this.data.MinuteList[val[4]],
           this.data.SecondList[val[5]]]
-      }else if (type == "start" && timeNum > new Date(this.data.endPickTime)) {
+      } else if (type == "start" && timeNum > new Date(this.data.endPickTime) && this.data.config.endDate) {
         limitDate = formatTime(this.data.endPickTime).arr;
         
       } else if (type == "end" && timeNum < new Date(this.data.startPickTime)) {
@@ -300,9 +325,10 @@ Component({
         return daysInMonth[month - 1];
       }
     },
-    initPick: function() {
-      const date = new Date();
-      const startDate = new Date(date.getTime() - 1000 * 60 * 60 * 24);
+    initPick: function(initData) {
+      const date = initData ? new Date(initData): new Date();
+      // const startDate = new Date(date.getTime() - 1000 * 60 * 60 * 24);
+      const startDate = date;
       const nowYear = date.getFullYear();
       const nowMonth = date.getMonth() + 1;
       const nowDay = date.getDate();
@@ -533,7 +559,8 @@ function formatTime(date) {
   const hour = date.getHours()
   const minute = date.getMinutes()
   const second = date.getSeconds()
-
+  console.log("formatTime", typeof date,date, [year, month, day, hour, minute, second]);
+  
   return {
     str: [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':'),
     arr: [year, month, day, hour, minute, second]
