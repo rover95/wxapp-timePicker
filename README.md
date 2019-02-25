@@ -10,6 +10,7 @@ pickerConfig: {
   endDate: true,                          // 是否需要结束时间，为true时显示开始时间和结束时间两个picker
   column: "second",                       //可选的最小时间范围hour、minute、secend
   dateLimit: true,                        //是否现在时间可选范围，false时可选任意时间；未数字n时，范围是当前时间的最近n天
+  initStartTime:'2019-01-01 12:32:44',    //picker初始时间，默认当前时间
   limitStartTime: "2015-05-06 12:32:44",  //最小可选时间
   limitEndTime: "2055-05-06 12:32:44"     //最大可选时间 
 }
@@ -22,3 +23,4 @@ endDate: true
    
 endDate: false  
 ![gif](https://raw.githubusercontent.com/rover95/wxapp-timePicker/master/images/noEndDate.gif)
+

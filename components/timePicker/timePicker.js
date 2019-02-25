@@ -43,9 +43,11 @@ Component({
         }
 
         // 在picker滚动未停止前点确定，会使startValue数组各项归零，发生错误，这里判断并重新初始化
+        // 微信新增了picker滚动的回调函数，已进行兼容
         if(this.data.startValue&&this.data.endValue){
           let s = 0, e = 0;
           let conf = this.data.config;
+          
           this.data.startValue.map(val => {
             if (val == 0) {
               s++
