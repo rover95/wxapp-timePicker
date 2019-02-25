@@ -4,14 +4,14 @@ Page({
   data: {
     isPickerRender: false,
     isPickerShow: false,
-    startTime:'2019-01-01 12:32:44',
-    endTime:'2019-12-01 12:32:44',
+    startTime: "2019-01-01 12:32:44",
+    endTime: "2019-12-01 12:32:44",
     pickerConfig: {
       endDate: true,
       column: "second",
       dateLimit: true,
-      initStartTime: '2019-01-01 12:32:44',
-      initEndTime: '2019-12-01 12:32:44',
+      initStartTime: "2019-01-01 12:32:44",
+      initEndTime: "2019-12-01 12:32:44",
       limitStartTime: "2015-05-06 12:32:44",
       limitEndTime: "2055-05-06 12:32:44"
     }

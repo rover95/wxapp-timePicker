@@ -11,6 +11,7 @@ pickerConfig: {
   column: "second",                       //可选的最小时间范围hour、minute、secend
   dateLimit: true,                        //是否现在时间可选范围，false时可选任意时间；未数字n时，范围是当前时间的最近n天
   initStartTime:'2019-01-01 12:32:44',    //picker初始时间，默认当前时间
+  initEndTime: "2019-12-01 12:32:44",     //picker初始结束时间，默认当前时间
   limitStartTime: "2015-05-06 12:32:44",  //最小可选时间
   limitEndTime: "2055-05-06 12:32:44"     //最大可选时间 
 }
