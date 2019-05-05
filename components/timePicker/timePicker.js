@@ -65,7 +65,7 @@ Component({
           }
           let n = tmp[conf.column];
           if (s>=n || e>=n) {
-            this.initPick();
+            this.initPick(this.data.config);
             this.setData({
               startValue: this.data.startValue,
               endValue: this.data.endValue,
