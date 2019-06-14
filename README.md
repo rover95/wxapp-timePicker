@@ -25,3 +25,7 @@ endDate: true
 endDate: false  
 ![gif](https://raw.githubusercontent.com/rover95/wxapp-timePicker/master/images/noEndDate.gif)
 
+## 更多
+
+[自定义轮播图组件](https://github.com/rover95/wxapp-swiper)  
+![gif](https://raw.githubusercontent.com/rover95/image/master/gif/swiper2.gif)
