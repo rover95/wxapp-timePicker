@@ -153,9 +153,6 @@ Component({
         limitEndTimeArr
       });
     },
-    preventD:function(){
-
-    },
     //滚动开始
     handlePickStart:function(e){
       this.setData({

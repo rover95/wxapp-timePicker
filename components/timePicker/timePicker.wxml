@@ -1,6 +1,6 @@
 <!--components/timePicker/timePicker.wxml-->
 <!-- 自定义时间筛选器 -->
-<view catchtouchmove="preventD" hidden="{{!pickerShow}}">
+<view hidden="{{!pickerShow}}">
   <view class="picker-container {{pickerShow?'show_picker':'hide_picker'}}" animation="{{animationData}}">
 
     <view class="btn-box">
