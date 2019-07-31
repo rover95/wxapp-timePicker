@@ -27,7 +27,7 @@ endDate: false
 
 ## 更多
 
-[小程序热力图组件](https://github.com/rover95/wxapp-heatmap)
+[小程序热力图组件](https://github.com/rover95/wxapp-heatmap)  
 ![img](https://raw.githubusercontent.com/rover95/image/master/img/heatmap3.png)
 
 [自定义轮播图组件](https://github.com/rover95/wxapp-swiper)  
