@@ -109,6 +109,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    //阻止滑动事件
+    onCatchTouchMove(e) {
+
+    },
     //读取配置项
     readConfig() {
       let limitEndTime = new Date().getTime();

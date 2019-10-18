@@ -64,5 +64,5 @@
 
   </view>
   <!-- 遮罩 -->
-  <view class="sensorType-screen" bindtap="hideModal" animation="{{animationOpacity}}"/>
+  <view class="sensorType-screen" bindtap="hideModal" catchtouchmove="onCatchTouchMove" animation="{{animationOpacity}}"/>
 </view>
