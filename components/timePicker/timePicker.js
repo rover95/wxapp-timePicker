@@ -59,6 +59,7 @@ Component({
             }
           });
           let tmp={
+            day:3,
             hour:4,
             minute:5,
             second:6
