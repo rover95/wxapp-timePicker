@@ -59,6 +59,7 @@ Component({
             }
           });
           let tmp={
+            day:3,
             hour:4,
             minute:5,
             second:6
@@ -320,6 +321,7 @@ Component({
       }
     },
     initPick: function(initData) {
+      initData = initData || {}
       const date = initData.initStartTime ? new Date(initData.initStartTime.replace(/-/g, '/')): new Date();
       const endDate = initData.initEndTime ? new Date(initData.initEndTime.replace(/-/g, '/')) : new Date();
       // const startDate = new Date(date.getTime() - 1000 * 60 * 60 * 24);
