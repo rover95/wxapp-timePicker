@@ -3,7 +3,7 @@
 <view hidden="{{!pickerShow}}">
   <view class="picker-container {{pickerShow?'show_picker':'hide_picker'}}" animation="{{animationData}}">
 
-    <view class="btn-box">
+    <view class="btn-box" catchtouchmove="onCatchTouchMove">
       <view class="pick_btn" bindtap="hideModal">取消</view>
       <view class='pick_btn' style="color: #19f" bindtap="onConfirm">确定</view>
     </view>
