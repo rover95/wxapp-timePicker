@@ -8,7 +8,7 @@
 ```js
 pickerConfig: {
   endDate: true,                          // 是否需要结束时间，为true时显示开始时间和结束时间两个picker
-  column: "second",                       //可选的最小时间范围hour、minute、secend
+  column: "second",                       //可选的最小时间范围day、hour、minute、secend
   dateLimit: true,                        //是否现在时间可选范围，false时可选任意时间；当为数字n时，范围是当前时间的最近n天
   initStartTime:'2019-01-01 12:32:44',    //picker初始时间，默认当前时间
   initEndTime: "2019-12-01 12:32:44",     //picker初始结束时间，默认当前时间
@@ -26,6 +26,9 @@ endDate: false
 ![gif](https://raw.githubusercontent.com/rover95/wxapp-timePicker/master/images/noEndDate.gif)
 
 ## 更多
+
+[动态表单组件](https://github.com/rover95/wxapp-form)
+![image](https://user-images.githubusercontent.com/28331870/77737126-4f61ff00-7048-11ea-83df-e10c100e415b.png)  
 
 [小程序热力图组件](https://github.com/rover95/wxapp-heatmap)  
 ![img](https://raw.githubusercontent.com/rover95/image/master/img/heatmap3.png)
