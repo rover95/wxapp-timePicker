@@ -241,7 +241,8 @@ Component({
       this.compareTime(val, "end");
     },
     //比较时间是否在范围内
-    compareTime(val, type) {
+    compareTime(val_, type) {
+      const val = val_.map(it=>it.toString());
       let h = val[3] ? this.data.HourList[val[3]] : "00";
       let m = val[4] ? this.data.MinuteList[val[4]] : "00";
       let s = val[5] ? this.data.SecondList[val[5]] : "00";
