@@ -76,7 +76,12 @@ Component({
 
       }
     },
-    config: Object
+    config: {
+      type: Object,
+      observer: function(config) {
+        this.init()
+      }
+    }
   },
 
   /**
@@ -94,21 +99,20 @@ Component({
   },
   attached: function() {},
   ready: function() {
-    this.readConfig();
-    this.initPick(this.data.config || null);
-    this.setData({
-      startValue: this.data.startValue,
-      endValue: this.data.endValue,
-    });
-
-
-    
-    
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    // 初始化组件参数
+    init() {
+      this.readConfig();
+      this.initPick(this.data.config || null);
+      this.setData({
+        startValue: this.data.startValue,
+        endValue: this.data.endValue,
+      });
+    },
     //阻止滑动事件
     onCatchTouchMove(e) {
 
