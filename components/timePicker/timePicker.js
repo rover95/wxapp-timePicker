@@ -541,7 +541,7 @@ Component({
 
 function formatTime(date) {
   
-  if (typeof date == 'string' || 'number') {
+  if (typeof date === 'string' || typeof date === 'number') {
     try {
       date = date.replace(/-/g, '/')//兼容ios
     } catch (error) {
