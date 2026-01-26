@@ -12,5 +12,5 @@
 </view>
 
 
-<time-picker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
+<time-picker endTime="{{pickerConfig.endDate}}" pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
   config="{{pickerConfig}}"></time-picker>
