@@ -76,6 +76,14 @@ Component({
 
       }
     },
+    endTime: {   // 自己改了源码，让时间控件的 endTime配置项 可动态修改。
+      type: Boolean,
+      observer:function(freshValue){
+        this.setData({
+          endDate: freshValue,
+        })
+      }
+    },
     config: Object
   },
 
